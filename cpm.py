@@ -1,4 +1,5 @@
 import copy
+import numpy as np
 from functools import reduce
 
 
@@ -104,6 +105,7 @@ class Cpm:
         return activities
 
     def run(self):
+        self.simulateDuration()
         self.root = self.getRoot()
         self.earlyFinish = self.forwardPass(self.root, self.activities)
         self.backwardPass(self.root, self.activities, self.earlyFinish)
@@ -115,7 +117,34 @@ class Cpm:
 
     def roundActivities(self):
         for activity in self.activities:
-            numeric_keys = ["min_duration", "ml_duration", "max_duration", "duration", "es", "ef", "ls", "lf", "tf", "ff"]
+            numeric_keys = [
+                "min_duration",
+                "ml_duration",
+                "max_duration",
+                "duration",
+                "es",
+                "ef",
+                "ls",
+                "lf",
+                "tf",
+                "ff",
+            ]
             for key in numeric_keys:
                 if key in activity and activity[key] != None:
                     activity[key] = round(activity[key], 2)
+
+    def simulateDuration(self):
+        # assumes that schema is equivalent throughout
+        # the data structure
+        if "duration" not in self.activities[0]:
+            for activity in self.activities:
+                if activity["ml_duration"] == None:
+                    activity["duration"] = np.random.uniform(
+                        activity["min_duration"], activity["max_duration"]
+                    )
+                else:
+                    activity["duration"] = np.random.triangular(
+                        activity["min_duration"],
+                        activity["ml_duration"],
+                        activity["max_duration"],
+                    )

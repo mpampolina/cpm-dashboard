@@ -23,5 +23,7 @@ class TestCalc(unittest.TestCase):
         self.assertCountEqual(self.cpm2.activities, testResults2)
         self.assertCountEqual(self.cpm3.activities, testResults3)
 
+    # Check that duration boundaries are respected
+
 if __name__ == "__main__":
     unittest.main()

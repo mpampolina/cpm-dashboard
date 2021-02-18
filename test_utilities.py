@@ -1,3 +1,4 @@
+# Simple Test Case 1
 testActivities1 = [
     {"id": "A", "duration": 3, "predecessor": []},
     {"id": "B", "duration": 3, "predecessor": []},
@@ -9,6 +10,9 @@ testActivities1 = [
     {"id": "H", "duration": 5, "predecessor": ["F", "G"]},
 ]
 
+# Test Case 1 with pre-determined
+# duration generated from a given
+# distribution
 testActivities1_1 = [
     {
         "id": "A",
@@ -76,6 +80,68 @@ testActivities1_1 = [
     },
 ]
 
+# Test Case 1 with a to-be-generated 
+# duration expressed by a given distribution
+testActivities1_2 = [
+    {
+        "id": "A",
+        "min_duration": 1,
+        "ml_duration": 2,
+        "max_duration": 4,
+        "predecessor": [],
+    },
+    {
+        "id": "B",
+        "min_duration": 2.5,
+        "ml_duration": 3,
+        "max_duration": 3.5,
+        "predecessor": [],
+    },
+    {
+        "id": "C",
+        "min_duration": 2,
+        "ml_duration": 3,
+        "max_duration": 4,
+        "predecessor": ["A", "B"],
+    },
+    {
+        "id": "D",
+        "min_duration": 3.5,
+        "ml_duration": 4,
+        "max_duration": 4.5,
+        "predecessor": ["A", "B"],
+    },
+    {
+        "id": "E",
+        "min_duration": 2,
+        "ml_duration": None,
+        "max_duration": 4,
+        "predecessor": ["C"],
+    },
+    {
+        "id": "F",
+        "min_duration": 5,
+        "ml_duration": None,
+        "max_duration": 7,
+        "predecessor": ["C"],
+    },
+    {
+        "id": "G",
+        "min_duration": 1,
+        "ml_duration": None,
+        "max_duration": 5,
+        "predecessor": ["D", "E"],
+    },
+    {
+        "id": "H",
+        "min_duration": 4,
+        "ml_duration": None,
+        "max_duration": 7,
+        "predecessor": ["F", "G"],
+    },
+]
+
+# Simple Test Case 2
 testActivities2 = [
     {"id": "X", "duration": 3, "predecessor": []},
     {"id": "A", "duration": 5, "predecessor": ["X"]},
@@ -83,6 +149,7 @@ testActivities2 = [
     {"id": "C", "duration": 7, "predecessor": ["B", "A"]},
 ]
 
+# Simple Test Case 3
 testActivities3 = [
     {"id": "A", "duration": 6, "predecessor": []},
     {"id": "B", "duration": 5, "predecessor": []},
