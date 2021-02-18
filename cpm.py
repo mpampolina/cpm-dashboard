@@ -110,4 +110,12 @@ class Cpm:
         self.activitySort(self.activities)
         self.retrieveImmediateSuccessors(self.root, self.activities)
         self.calculateFloat()
+        self.roundActivities()
         return self.activities
+
+    def roundActivities(self):
+        for activity in self.activities:
+            numeric_keys = ["min_duration", "ml_duration", "max_duration", "duration", "es", "ef", "ls", "lf", "tf", "ff"]
+            for key in numeric_keys:
+                if key in activity and activity[key] != None:
+                    activity[key] = round(activity[key], 2)
