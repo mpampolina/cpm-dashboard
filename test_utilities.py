@@ -289,7 +289,7 @@ testResults1_1 = [
         "tf": 0.4,
     },
     {
-        "critical": False,
+        "critical": True,
         "duration": 3.19,
         "ef": 3.19,
         "es": 0,

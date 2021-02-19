@@ -98,7 +98,11 @@ class Cpm:
                 destNodeES = aSuccessor["es"]
                 currentActivity["ff"] = destNodeES - currentActivity["ef"]
 
-            currentActivity["critical"] = True if currentActivity["tf"] == 0 else False
+            # recognize activities with tf values within four decimal places of
+            # zero as critical activities to account for floating point errors
+            currentActivity["critical"] = (
+                True if round(currentActivity["tf"], 4) == 0 else False
+            )
 
     def activitySort(self, activities):
         activities.sort(key=lambda x: x.get("lf"))
