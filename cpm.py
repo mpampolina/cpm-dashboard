@@ -1,6 +1,55 @@
 import copy
 import numpy as np
+from collections import Counter
 from functools import reduce
+
+
+def sample(activities, iterations=1000):
+    # setup counter with all critical
+    # activity counts set to zero
+    cnt = Counter()
+    for activity in activities:
+        cnt[activity["id"]] = 0
+
+    # run 1000 samples
+    sampled_durations = []
+    for _ in range(iterations):
+        cpm = Cpm(activities)
+        cpm.run()
+        sampled_durations.append(cpm.earlyFinish)
+        for activity in cpm.activities:
+            if activity["critical"]:
+                cnt[activity["id"]] += 1
+
+    return sampled_durations, cnt
+
+# return the probability as a decimal that a 
+# given activity is on the critical path
+def getPCritical(activities, iterations = 1000):
+    _, cnt = sample(activities, iterations)
+
+    activityIDs = list(cnt.keys())
+    # generate array of probabilities that each
+    # activity is critical
+    PCritical = [int(value) / iterations for value in cnt.values()]
+
+    return PCritical, activityIDs
+
+
+def getCDF(activities, iterations = 1000):
+    sampled_durations, _ = sample(activities, iterations)
+
+    sampled_durations.sort()
+    prob = [i * 0.001 for i in range(iterations)]
+    dataset = []
+
+    # generate CDF plot coordinates, where x is a
+    # duration/deadline and y is the probability that that
+    # the project will be completed at or before that duration
+    for index, duration in enumerate(sampled_durations):
+        dataset.append({"x": duration, "y": prob[index]})
+
+    return dataset
 
 
 class Cpm:
