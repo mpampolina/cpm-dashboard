@@ -5,6 +5,11 @@ from functools import reduce
 
 
 def sample(activities, iterations=1000):
+    if "duration" in activities[0]:
+        raise Exception(
+            "Cannot sample activities for which a duration has already been defined."
+        )
+
     # setup counter with all critical
     # activity counts set to zero
     cnt = Counter()
