@@ -1,5 +1,6 @@
 import copy
 import numpy as np
+from math import ceil
 from collections import Counter
 from functools import reduce
 
@@ -42,12 +43,15 @@ def getPCritical(activities, iterations=1000):
     return PCritical, activityIDs
 
 
-def getCDF(activities, iterations=1000):
+def getCDF(activities, iterations=1000, stepped=False):
     sampled_durations, _ = sample(activities, iterations)
 
     sampled_durations.sort()
     prob = [i * 0.001 for i in range(iterations)]
     dataset = []
+
+    if stepped:
+        sampled_durations = [ceil(duration) for duration in sampled_durations]
 
     # generate CDF plot coordinates, where x is a
     # duration/deadline and y is the probability that that

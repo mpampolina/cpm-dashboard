@@ -1,5 +1,6 @@
 __pycache__
 sample.py
 .ipynb_checkpoints
-/venv
+/routes/api/venv
 .vscode
+/node_modules

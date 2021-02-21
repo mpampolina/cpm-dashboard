@@ -1,5 +1,6 @@
 import unittest
 from cpm import Cpm
+import json
 from test_utilities import *
 
 class TestCalc(unittest.TestCase):
@@ -13,6 +14,9 @@ class TestCalc(unittest.TestCase):
         self.cpm3 = Cpm(testActivities3)
         self.cpm3.run()
 
+        with open("./test_utilities.json") as json_file:
+            self.json = json.load(json_file)
+
     # Check for a discrepancy between the 
     # given reference list items (including nested dictionaries
     # or lists) and the the class generated  list items, irrespective
@@ -22,6 +26,10 @@ class TestCalc(unittest.TestCase):
         self.assertCountEqual(self.cpm1_1.activities, testResults1_1)
         self.assertCountEqual(self.cpm2.activities, testResults2)
         self.assertCountEqual(self.cpm3.activities, testResults3)
+
+    # ensure json input is equivalent to test suite inputs
+    def test_json(self):
+        self.assertCountEqual(self.json, testActivities1_2)
 
     # Check that duration boundaries are respected
 
